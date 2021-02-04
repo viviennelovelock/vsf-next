@@ -218,7 +218,7 @@ export default {
     SfRadio,
     SfImage,
     SfCheckbox,
-    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses'),
+    UserBillingAddresses: () => import('~/components/checkout/UserBillingAddresses'),
     ValidationProvider,
     ValidationObserver
   },

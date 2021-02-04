@@ -215,7 +215,7 @@ export default {
     SfSelect,
     SfRadio,
     SfCheckbox,
-    UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses'),
+    UserShippingAddresses: () => import('~/components/checkout/UserShippingAddresses'),
     ValidationProvider,
     ValidationObserver
   },
