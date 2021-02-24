@@ -31,7 +31,7 @@ import {
   SfAddressPicker
 } from '@storefront-ui/vue';
 import UserShippingAddress from '~/components/UserShippingAddress';
-import { userShippingGetters } from '@vue-storefront/commercetools';
+import { userShippingGetters } from '@vsf-enterprise/commercetools';
 
 export default {
   name: 'UserShippingAddresses',

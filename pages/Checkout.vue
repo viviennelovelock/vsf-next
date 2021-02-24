@@ -24,7 +24,7 @@ import { SfSteps, SfButton } from '@storefront-ui/vue';
 import CartPreview from '~/components/checkout/CartPreview';
 import OrderReview from '~/components/checkout/OrderReview';
 import { ref, computed } from '@vue/composition-api';
-import { useUser } from '@vue-storefront/commercetools';
+import { useUser } from '@vsf-enterprise/commercetools';
 
 const STEPS = {
   'personal-details': 'Personal Details',

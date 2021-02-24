@@ -10,16 +10,30 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport',
-        content: 'width=device-width, initial-scale=1' },
-      { hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || '' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
       { rel: 'icon',
         type: 'image/x-icon',
-        href: '/favicon.ico' }
+        href: '/favicon.ico'
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'crossorigin'
+      },
+      {
+        rel: 'preload',
+        href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700|Roboto:300,300i,400,400i,500,700&display=swap',
+        as: 'style'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700|Roboto:300,300i,400,400i,500,700&display=swap',
+        media: 'print',
+        onload: 'this.media=\'all\''
+      }
     ],
     script: []
   },
@@ -35,27 +49,17 @@ export default {
     }
   },
   buildModules: [
-    // to core
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
+    '@nuxtjs/pwa',
+    ['@vue-storefront/nuxt-theme'],
     ['@vue-storefront/nuxt', {
-      coreDevelopment: true,
-      logger: {
-        verbosity: 'error'
-      },
       useRawSource: {
-        dev: [
-          '@vue-storefront/commercetools',
-          '@vue-storefront/core'
-        ],
-        prod: [
-          '@vue-storefront/commercetools',
-          '@vue-storefront/core'
-        ]
+        dev: ['@vue-storefront/core', '@vue-storefront/storyblok'],
+        prod: ['@vue-storefront/core', '@vue-storefront/storyblok']
       }
     }],
-    ['@vue-storefront/nuxt-theme'],
-    ['@vue-storefront/commercetools/nuxt', {
+    ['@vsf-enterprise/commercetools/nuxt', {
       api: {
         uri: 'https://api.commercetools.com/vsf-ct-dev/graphql',
         authHost: 'https://auth.sphere.io',
@@ -77,59 +81,63 @@ export default {
       },
       i18n: {
         useNuxtI18nConfig: true
+      },
+      faceting: {
+        host: 'https://api.commercetools.com'
       }
-    }]
+    }],
+    [
+      '@vue-storefront/storyblok/nuxt',
+      JSON.parse('{"accessToken":"YOUR_TOKEN","cacheProvider":"memory"}')
+    ],
   ],
   modules: [
     'nuxt-i18n',
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt'
   ],
+  plugins: ['~/plugins/cms.client'],
+  serverMiddleware: ['~/plugins/cms.server'],
   i18n: {
     currency: 'USD',
     country: 'US',
     countries: [
-      { name: 'US',
-        label: 'United States' },
-      { name: 'AT',
-        label: 'Austria' },
-      { name: 'DE',
-        label: 'Germany' },
-      { name: 'NL',
-        label: 'Netherlands' }
+      { name: 'US', label: 'United States' },
+      { name: 'AT', label: 'Austria' },
+      { name: 'DE', label: 'Germany' },
+      { name: 'NL', label: 'Netherlands' }
     ],
     currencies: [
-      { name: 'EUR',
-        label: 'Euro' },
-      { name: 'USD',
-        label: 'Dollar' }
+      { name: 'EUR', label: 'Euro' },
+      { name: 'USD', label: 'Dollar' }
     ],
     locales: [
-      {
-        code: 'en',
-        label: 'English',
-        file: 'en.js',
-        iso: 'en'
-      },
-      {
-        code: 'de',
-        label: 'German',
-        file: 'de.js',
-        iso: 'de'
-      }
+      { code: 'en', label: 'English', file: 'en.js', iso: 'en' },
+      { code: 'de', label: 'German', file: 'de.js', iso: 'de' }
     ],
     defaultLocale: 'en',
     lazy: true,
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en'
+      fallbackLocale: 'en',
+      numberFormats: {
+        en: {
+          currency: {
+            style: 'currency', currency: 'USD', currencyDisplay: 'symbol'
+          }
+        },
+        de: {
+          currency: {
+            style: 'currency', currency: 'EUR', currencyDisplay: 'symbol'
+          }
+        }
+      }
     },
     detectBrowserLanguage: {
       cookieKey: 'vsf-locale'
     }
   },
-  css: [require.resolve('@storefront-ui/vue/styles.scss', { paths: [process.cwd()] })],
   styleResources: {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })]
   },

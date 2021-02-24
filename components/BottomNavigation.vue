@@ -30,7 +30,7 @@
 <script>
 import { SfBottomNavigation, SfIcon, SfCircleIcon } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useUser } from '@vue-storefront/commercetools';
+import { useUser } from '@vsf-enterprise/commercetools';
 
 export default {
   components: {
