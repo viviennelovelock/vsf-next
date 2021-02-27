@@ -90,6 +90,21 @@ export default {
       '@vue-storefront/storyblok/nuxt',
       JSON.parse('{"accessToken":"YOUR_TOKEN","cacheProvider":"memory"}')
     ],
+    ['@vue-storefront/cache/nuxt', {
+      invalidation: {
+        // Invalidation options
+      },
+      driver: [
+        '@vsf-enterprise/redis-cache',
+        {
+          defaultTimeout: 86400,
+          redis: {
+            host: 'redis',
+            port: 6379
+          }
+        }
+      ]
+    }],
   ],
   modules: [
     'nuxt-i18n',
