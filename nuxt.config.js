@@ -90,6 +90,11 @@ export default {
       '@vue-storefront/storyblok/nuxt',
       JSON.parse('{"accessToken":"YOUR_TOKEN","cacheProvider":"memory"}')
     ],
+  ],
+  modules: [
+    'nuxt-i18n',
+    'cookie-universal-nuxt',
+    'vue-scrollto/nuxt',
     ['@vue-storefront/cache/nuxt', {
       invalidation: {
         endpoint: '/cache-invalidate',
@@ -106,11 +111,6 @@ export default {
         }
       ]
     }],
-  ],
-  modules: [
-    'nuxt-i18n',
-    'cookie-universal-nuxt',
-    'vue-scrollto/nuxt'
   ],
   plugins: ['~/plugins/cms.client'],
   serverMiddleware: ['~/plugins/cms.server'],
