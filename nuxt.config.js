@@ -92,7 +92,8 @@ export default {
     ],
     ['@vue-storefront/cache/nuxt', {
       invalidation: {
-        // Invalidation options
+        endpoint: '/cache-invalidate',
+        handlers: []
       },
       driver: [
         '@vsf-enterprise/redis-cache',
